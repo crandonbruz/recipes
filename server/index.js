@@ -1,6 +1,16 @@
 import Express from "express";
+import mongoose from "mongoose";
 import cors from "cors";
-import recipiesRouter from "./routes/recipie.js";
+import recipiesRouter from "./routes/api/recipie.js";
+
+const MONGODB_URI =
+  process.env.MONGODB_URI ||
+  "mongodb+srv://bcruz12:bcruz12@cluster0.wwwomuw.mongodb.net/recipies?retryWrites=true&w=majority";
+
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app = new Express();
 app.use(cors());
