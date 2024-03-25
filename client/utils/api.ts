@@ -1,18 +1,50 @@
-export const searchRecipies = async (search: string) => {
-  const url = `https://recipe-by-api-ninjas.p.rapidapi.com/v1/recipe?query=${search}`;
-  const options = {
+export const getMe = (token: any) => {
+  return fetch("http://localhost:4000/api/me", {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "642c45194bmsh4b63458a91440efp1e6cdcjsn94ba3ffd35c2",
-      "X-RapidAPI-Host": "recipe-by-api-ninjas.p.rapidapi.com",
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
-  };
+  });
+};
 
-  try {
-    const response = await fetch(url, options);
-    const result = await response.json();
-    console.log(result);
-  } catch (error) {
-    console.error(error);
-  }
+export const createUser = (userData: any) => {
+  return fetch("http://localhost:4000/api/user", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+};
+
+export const loginUser = (userData: any) => {
+  return fetch("http://localhost:4000/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+};
+
+export const saverecipe = (recipeData: any, token: any) => {
+  return fetch("http://localhost:4000/api/recipe", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(recipeData),
+  });
+};
+
+export const deleterecipe = (recipeId: any, token: any) => {
+  return fetch(`http://localhost:4000/api/recipe/${recipeId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  });
 };

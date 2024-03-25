@@ -1,4 +1,4 @@
-import { User, Recipie } from "../models";
+import { User, recipe } from "../models";
 import { AuthenticationError } from "apollo-server-express";
 import { signToken } from "../utils/auth";
 
@@ -8,7 +8,7 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
-          .populate("recipies");
+          .populate("recipes");
 
         return userData;
       }
@@ -33,11 +33,11 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveRecipie: async (parent, { recipieData }, context) => {
+    saverecipe: async (parent, { recipeData }, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { recipies: recipieData } },
+          { $push: { recipes: recipeData } },
           { new: true }
         );
 
@@ -45,11 +45,11 @@ const resolvers = {
       }
       throw new AuthenticationError();
     },
-    removeRecipie: async (parent, { recipieId }, context) => {
+    removerecipe: async (parent, { recipeId }, context) => {
       if (context.user) {
         return User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { recipies: { recipieId } } },
+          { $pull: { recipes: { recipeId } } },
           { new: true }
         );
       }
