@@ -1,4 +1,4 @@
-import Express from "express";
+import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import recipesRouter from "./routes/api/recipe.js";
@@ -12,7 +12,7 @@ mongoose.connect(MONGODB_URI, {
   useUnifiedTopology: true,
 });
 
-const app = new Express();
+const app = new express();
 app.use(cors());
 const port = 4000;
 
