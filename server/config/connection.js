@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
 
-mongoose.connect(
-  process.env.MONGODB_URI ||
-    "mongodb+srv://bcruz12:bcruz12@cluster0.wwwomuw.mongodb.net/recipes?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.MONGODB_URI);
 
 module.exports = mongoose.connection;
