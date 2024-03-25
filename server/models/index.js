@@ -1,4 +1,4 @@
 import { User } from "./Users.js";
-import { Recipie } from "./Recipie.js";
+import { recipe } from "./recipe.js";
 
-export { User, Recipie };
+export { User, recipe };

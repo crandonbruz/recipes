@@ -38,11 +38,11 @@ module.exports = {
     const token = signToken(user);
     res.json({ token, user });
   },
-  async saveRecipie({ user, body }, res) {
+  async saverecipe({ user, body }, res) {
     try {
       const updatedUser = await User.findByIdAndUpdate(
         { _id: user._id },
-        { $push: { recipies: body } },
+        { $push: { recipes: body } },
         { new: true, runValidators: true }
       );
       return res.json(updatedUser);
@@ -50,10 +50,10 @@ module.exports = {
       return res.status(400).json(err);
     }
   },
-  async removeRecipie({ user, params }, res) {
+  async removerecipe({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
-      { $pull: { recipies: { _id: params.id } } },
+      { $pull: { recipes: { _id: params.id } } },
       { new: true }
     );
 

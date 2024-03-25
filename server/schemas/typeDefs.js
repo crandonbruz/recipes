@@ -1,5 +1,5 @@
 const typeDefs = `
-type Recipie {
+type recipe {
     _id: ID
   title: String
   ingredients: String
@@ -11,8 +11,8 @@ type User {
   username: String
   email: String
   password: String
-  recipies: [Recipie]
-  recipieCount: Int
+  recipes: [recipe]
+  recipeCount: Int
 }
 type Auth {
     token: ID
@@ -25,8 +25,8 @@ type Query {
 type Mutation {
     login(email: String!, password: String!): Auth
   addUser(username: String!, email: String!, password: String!): Auth
-  saveRecipie(recepieData: recepieInput!): User
-    removeRecipie(recipieId: ID!): User
+  saveRecipe(recepieData: recepieInput!): User
+    removeRecipe(recipeId: ID!): User
 }
 `;
 export default typeDefs;

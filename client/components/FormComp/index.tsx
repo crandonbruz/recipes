@@ -1,13 +1,22 @@
 "use strict";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { Recipie } from "@/utils/tyoes";
+import { Recipe } from "../../utils/types";
 import { styles } from "./styles";
 
 export const FormComp = () => {
-  const { root, map } = styles;
+  const {
+    root,
+    map,
+    ingredients,
+    instructions,
+    servings,
+    title,
+    button,
+    data,
+  } = styles;
   const [searchInput, setSearchInput] = useState("");
-  const [searchedRecipies, setSearchedRecipies] = useState<Recipie[]>([]);
+  const [searchedRecipies, setSearchedRecipies] = useState<Recipe[]>([]);
   const backendUrl =
     process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
 
@@ -17,7 +26,7 @@ export const FormComp = () => {
     }
     try {
       const response = await fetch(
-        `${backendUrl}/api/recipies?query=${searchInput}`
+        `${backendUrl}/api/recipes?query=${searchInput}`
       );
       console.log(response);
 
@@ -35,24 +44,46 @@ export const FormComp = () => {
       console.error(error);
     }
   };
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleFormSubmit();
+    }
+  };
   return (
     <>
       <Box sx={root}>
         <TextField
+          sx={{ color: "#edede9" }}
           label="Search For A Recipie"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
-        <Button onClick={handleFormSubmit}>Search</Button>
+        <Button sx={button} onClick={handleFormSubmit}>
+          Search
+        </Button>
       </Box>
 
       <Box sx={map}>
         {searchedRecipies.map((recipie, index) => (
-          <Box key={index}>
-            <h2>{recipie.title}</h2>
-            <p>{recipie.ingredients}</p>
-            <p>{recipie.servings}</p>
-            <p>{recipie.instructions}</p>
+          <Box key={index} sx={data}>
+            <Box>
+              <Typography variant="h4" sx={title}>
+                {recipie.title}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="h5">Ingredients: </Typography>
+              <Typography sx={ingredients}>{recipie.ingredients}</Typography>
+            </Box>
+            <Box>
+              <Typography variant="h5">Servings: </Typography>
+              <Typography sx={servings}>{recipie.servings}</Typography>
+            </Box>
+            <Box>
+              <Typography variant="h5">Instructions: </Typography>
+              <Typography sx={instructions}>{recipie.instructions}</Typography>
+            </Box>
           </Box>
         ))}
       </Box>

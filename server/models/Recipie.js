@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-const RecipieSchema = new Schema({
+const recipeSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -19,6 +19,6 @@ const RecipieSchema = new Schema({
   },
 });
 
-const Recipie = model("Recipie", RecipieSchema);
+const recipe = model("recipe", recipeSchema);
 
-export default Recipie;
+export default recipe;

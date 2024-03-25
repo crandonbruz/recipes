@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import recipieSchema from "./Recipie.js";
+import recipeSchema from "./recipe.js";
 
 const userSchema = new Schema({
   username: {
@@ -20,7 +20,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  recipies: [recipieSchema],
+  recipes: [recipeSchema],
 });
 
 userSchema.pre("save", async function (next) {
@@ -35,8 +35,8 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-userSchema.virtual("recipieCount").get(function () {
-  return this.recipies.length;
+userSchema.virtual("recipeCount").get(function () {
+  return this.recipes.length;
 });
 
 const User = model("User", userSchema);

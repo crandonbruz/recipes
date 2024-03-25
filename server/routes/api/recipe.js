@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 
 const router = express.Router();
 
-router.get("/recipies", async (req, res) => {
+router.get("/recipes", async (req, res) => {
   const search = req.query.query;
   console.log("Search query:", search);
 
