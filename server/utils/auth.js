@@ -1,7 +1,7 @@
 import { GraphQLError } from "graphql";
 import jwt from "jsonwebtoken";
 
-const secret = process.env.JWT_SECRET || "eldiablo";
+const secret = process.env.JWT_SECRET;
 const expiration = process.env.JWT_EXPIRATION || "2h";
 
 module.exports = {

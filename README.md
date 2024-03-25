@@ -6,5 +6,7 @@ I made the frontend using next.js. The backend is using express. My further impl
 
 ## Steps to use:
 
+For.env steps feel free to contact me.
+
 1. Clone the repo
 2. Run both scripts on package.json
