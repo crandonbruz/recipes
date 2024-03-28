@@ -20,18 +20,22 @@ export const LoginComp = () => {
     }
     try {
       const response = await loginUser({
-        variables: { email: formData.email, password: formData.password },
+        email: formData.email,
+        password: formData.password,
       });
-      Auth.login(response.login.token);
-      console.log(response);
+
       if (!response.ok) {
-        throw new Error("No data found");
+        throw new Error("Login failed");
       }
-      const data = await response.json();
-      console.log(data);
-      if (!data) {
-        throw new Error("recipes not found in response");
+
+      const responseData = await response.json();
+
+      if (!responseData.token) {
+        throw new Error("Token not found in response");
       }
+      Auth.login(responseData.token);
+
+      console.log("Login successful");
       setFormData({ email: "", password: "" });
     } catch (error) {
       console.error(error);

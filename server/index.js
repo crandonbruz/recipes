@@ -14,13 +14,13 @@ mongoose.connect(MONGODB_URI, {
 
 const app = new express();
 app.use(cors());
+app.use("/api", recipesRouter);
+app.use(express.static("public"));
 const port = 4000;
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
-
-app.use("/api", recipesRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
