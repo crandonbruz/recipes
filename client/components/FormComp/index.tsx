@@ -18,7 +18,7 @@ export const FormComp = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchedRecipies, setSearchedRecipies] = useState<Recipe[]>([]);
   const backendUrl =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:4000";
+    process.env.REACT_APP_BACKEND_URL || "https://recipies.vercel.app";
 
   const handleFormSubmit = async () => {
     if (!searchInput) {
