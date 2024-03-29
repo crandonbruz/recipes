@@ -54,7 +54,7 @@ export const FormComp = () => {
       <Box sx={root}>
         <TextField
           sx={{ color: "#edede9" }}
-          label="Type your recipie here"
+          label="Type your recipe here"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           onKeyDown={handleKeyDown}
