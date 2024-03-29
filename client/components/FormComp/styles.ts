@@ -5,7 +5,7 @@ export const styles = {
     alignItems: "center",
     justifyContent: "center",
     height: "25vh",
-    width: "15%",
+    width: "50%",
     backgroundColor: "#aec3b0",
     borderRadius: "10px",
     margin: "10px",
