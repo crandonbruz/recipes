@@ -25,12 +25,16 @@ export const styles = {
     padding: "20px",
     borderRadius: "10px",
     backgroundColor: "#aec3b0",
+    ["@media (max-width: 925px)"]: {
+      width: "100%",
+    },
   },
   title: {
     width: "100%",
     height: "100%",
     color: "#edede9",
   },
+
   ingredients: { width: "100%", height: "100%", color: "#edede9" },
   instructions: { width: "100%", height: "100%", color: "#edede9" },
   servings: { width: "100%", height: "100%", color: "#edede9" },
