@@ -10,3 +10,8 @@ For.env steps feel free to contact me.
 
 1. Clone the repo
 2. Run both scripts on package.json
+
+
+## Link
+
+Here is the link to the deployed app on vercel: https://recipies-client-git-main-crandonbruzs-projects.vercel.app/
