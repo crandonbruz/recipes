@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
-import recipeSchema from "./recipe.js";
+import { recipeSchema } from "./Recipe.js";
 
 const userSchema = new Schema({
   username: {
@@ -39,6 +39,4 @@ userSchema.virtual("recipeCount").get(function () {
   return this.recipes.length;
 });
 
-const User = model("User", userSchema);
-
-export default User;
+export const User = model("User", userSchema);

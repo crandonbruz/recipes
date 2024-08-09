@@ -2,9 +2,11 @@ import { Box, Button, TextField } from "@mui/material";
 import { styles } from "./styles";
 import { useState } from "react";
 import { loginUser } from "@/utils/api";
-import Auth from "@/utils/auth";
+import { AuthService } from "@/utils/auth";
+import React from "react";
+import { LoginCompProps } from "@/utils/types";
 
-export const LoginComp = () => {
+export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
   const { root } = styles;
   const [formData, setFormData] = useState({ email: "", password: "" });
   const handleInputChange = (e: { target: { name: any; value: any } }) => {
@@ -24,32 +26,37 @@ export const LoginComp = () => {
         password: formData.password,
       });
 
-      if (!response.ok) {
+      if (!(response as Response).ok) {
         throw new Error("Login failed");
       }
 
-      const responseData = await response.json();
+      const responseData = await (response as Response).json();
 
       if (!responseData.token) {
         throw new Error("Token not found in response");
       }
-      Auth.login(responseData.token);
+      AuthService.login(responseData.token);
 
       console.log("Login successful");
+      onLogin(responseData.token);
       setFormData({ email: "", password: "" });
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <Box sx={root}>
       <TextField
-        label="Username"
+        label="Email"
+        name="email"
         value={formData.email}
         onChange={handleInputChange}
       />
       <TextField
         label="Password"
+        name="password"
+        type="password"
         value={formData.password}
         onChange={handleInputChange}
       />

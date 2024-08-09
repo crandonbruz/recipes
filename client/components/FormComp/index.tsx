@@ -84,6 +84,14 @@ export const FormComp = () => {
               <Typography variant="h5">Instructions: </Typography>
               <Typography sx={instructions}>{recipie.instructions}</Typography>
             </Box>
+            <Button
+              sx={button}
+              onClick={() => {
+                console.log("Save recipe");
+              }}
+            >
+              Save
+            </Button>
           </Box>
         ))}
       </Box>

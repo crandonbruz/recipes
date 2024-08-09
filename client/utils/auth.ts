@@ -1,6 +1,9 @@
 import decode from "jwt-decode";
 
-class AuthService {
+export class AuthService {
+  static login(idToken: string) {
+    localStorage.setItem("id_token", idToken);
+  }
   // get user data
   getProfile() {
     return decode(this.getToken() as string);
@@ -30,15 +33,8 @@ class AuthService {
   setToken(idToken: string) {
     localStorage.setItem("id_token", idToken);
   }
-  // login user
-  login(idToken: string) {
-    // save token to local storage
-    this.setToken(idToken);
-    window.location.assign("/");
-  }
   // remove token from local storage
   logout() {
     localStorage.removeItem("id_token");
   }
 }
-export default new AuthService();

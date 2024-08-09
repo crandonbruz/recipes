@@ -1,5 +1,8 @@
+const backendUrl =
+  process.env.REACT_APP_BACKEND_URL || "https://recipies.vercel.app";
+
 export const getMe = (token: any) => {
-  return fetch("http://localhost:4000/api/me", {
+  return fetch(`${backendUrl}/api/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -8,8 +11,8 @@ export const getMe = (token: any) => {
   });
 };
 
-export const createUser = (userData: any) => {
-  return fetch("http://localhost:4000/api/user", {
+export const registerUser = (userData: any) => {
+  return fetch(`${backendUrl}/api/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +22,7 @@ export const createUser = (userData: any) => {
 };
 
 export const loginUser = (userData: any) => {
-  return fetch("http://localhost:4000/api/login", {
+  return fetch(`${backendUrl}/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +32,7 @@ export const loginUser = (userData: any) => {
 };
 
 export const saverecipe = (recipeData: any, token: any) => {
-  return fetch("http://localhost:4000/api/recipe", {
+  return fetch(`${backendUrl}/api/user/recipes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -40,7 +43,7 @@ export const saverecipe = (recipeData: any, token: any) => {
 };
 
 export const deleterecipe = (recipeId: any, token: any) => {
-  return fetch(`http://localhost:4000/api/recipe/${recipeId}`, {
+  return fetch(`${backendUrl}/api/recipe/${recipeId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

@@ -4,3 +4,11 @@ export interface Recipe {
   instructions: string;
   servings: string;
 }
+
+export interface LoginCompProps {
+  onLogin: (token: string) => void;
+}
+
+export interface RegisterCompProps {
+  onRegister: (token: string) => void;
+}

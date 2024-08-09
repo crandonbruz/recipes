@@ -1,35 +1,27 @@
+import dotenv from "dotenv";
+dotenv.config({ path: "../.env" });
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 import recipesRouter from "./routes/api/recipe.js";
-
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://bcruz12:bcruz12@cluster0.wwwomuw.mongodb.net/recipes?retryWrites=true&w=majority";
-
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const app = new express();
-app.use(cors());
-app.use("/api", recipesRouter);
-app.use(express.static("public"));
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'none'; font-src 'self' data: http:;"
-  );
-  next();
-});
+import registerRouter from "./routes/api/login.js";
+import db from "./config/connection.js";
 
 const port = 4000;
+const app = new express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api", recipesRouter);
+app.use("/api", registerRouter);
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+db.once("open", () => {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
 });

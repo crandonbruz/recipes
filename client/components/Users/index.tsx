@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import { styles } from "./styles";
 
-export const AccountComp = () => {
+export const UsersComp = () => {
   const { root } = styles;
   return (
     <Box sx={root}>
-      <h1>Account</h1>
+      <h1>Users</h1>
     </Box>
   );
 };

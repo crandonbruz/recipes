@@ -4,5 +4,7 @@ export const styles = {
     flexDirection: "column",
     alignItems: "center",
     padding: "1rem",
+    backgroudnColor: "#red",
+    width: "100%",
   },
 };
