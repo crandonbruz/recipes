@@ -10,7 +10,7 @@ import helmet from "helmet";
 const port = 4000;
 const app = new express();
 const corsOptions = {
-  origin: "https://recipies-client-git-main-crandonbruzs-projects.vercel.app/",
+  origin: "https://recipies-client-git-main-crandonbruzs-projects.vercel.app",
   allowedHeaders: ["Authorization", "Content-Type"],
   credentials: true,
 };
