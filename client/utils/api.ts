@@ -1,14 +1,22 @@
+//remember to add the correct routes for the backend once done testing
+
 const backendUrl =
   process.env.REACT_APP_BACKEND_URL || "https://recipies.vercel.app";
 
-export const getMe = (token: any) => {
-  return fetch(`${backendUrl}/api/me`, {
+export const getUser = async (token: any) => {
+  const response = await fetch(`${backendUrl}/api/user/recipes`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Could not display the user data");
+  }
+  return data;
 };
 
 export const registerUser = (userData: any) => {
@@ -21,33 +29,52 @@ export const registerUser = (userData: any) => {
   });
 };
 
-export const loginUser = (userData: any) => {
-  return fetch(`${backendUrl}/api/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  });
+export const loginUser = async (userData: any) => {
+  try {
+    const response = await fetch(`${backendUrl}/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    if (!response.ok) {
+      throw new Error("Login failed");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw error;
+  }
 };
 
-export const saverecipe = (recipeData: any, token: any) => {
+export const saveRecipe = (recipeData: any, token: any) => {
+  console.log("recipeData", recipeData);
+  // for testing purposes only
+  // console.log("token", token);
+  const getToken = localStorage.getItem("token");
+
   return fetch(`${backendUrl}/api/user/recipes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getToken}`,
     },
     body: JSON.stringify(recipeData),
   });
 };
 
-export const deleterecipe = (recipeId: any, token: any) => {
-  return fetch(`${backendUrl}/api/recipe/${recipeId}`, {
+export const deleteRecipe = (recipeId: any, token: any) => {
+  return fetch(`${backendUrl}/api/user/recipe/${recipeId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
+};
+
+export const getToken = () => {
+  return localStorage.getItem("token");
 };

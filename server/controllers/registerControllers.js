@@ -1,6 +1,7 @@
 import { User } from "../models/Users.js";
 import bcrypt from "bcrypt";
 import { signToken } from "../utils/auth.js";
+import { Recipe } from "../models/Recipe.js";
 
 export const signup = async (req, res) => {
   try {
@@ -27,7 +28,13 @@ export const login = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
       const token = signToken(user);
-      res.json({ message: "Logged in", token });
+      const userData = {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+      };
+
+      res.json({ message: "Logged in", token, userData });
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }
@@ -44,4 +51,46 @@ export const logout = (req, res, next) => {
     res.clearCookie("sid");
     res.json({ message: "Logged out" });
   });
+};
+
+export const addRecipe = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const { title, ingredients, servings, instructions } = req.body;
+    console.log(req.body);
+
+    // Make sure user has all the necessary fields
+    if (!title || !ingredients || !servings || !instructions) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    // Add recipe to user in database
+    user.recipes.push({ title, ingredients, servings, instructions });
+    await user.save();
+
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const userInfo = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const user = await User.findById(userId).populate("recipes");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };

@@ -9,6 +9,7 @@ import { LoginCompProps } from "@/utils/types";
 export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
   const { root } = styles;
   const [formData, setFormData] = useState({ email: "", password: "" });
+
   const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -26,22 +27,25 @@ export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
         password: formData.password,
       });
 
-      if (!(response as Response).ok) {
-        throw new Error("Login failed");
-      }
-
-      const responseData = await (response as Response).json();
-
-      if (!responseData.token) {
+      if (!response.token) {
         throw new Error("Token not found in response");
       }
-      AuthService.login(responseData.token);
 
-      console.log("Login successful");
-      onLogin(responseData.token);
+      AuthService.login(response.token);
+      localStorage.setItem("token", response.token);
+
+      onLogin(response.userData.username);
+      // for testing purposes only
+      // console.log(response);
+
       setFormData({ email: "", password: "" });
     } catch (error) {
       console.error(error);
+    }
+  };
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleFormSubmit();
     }
   };
 
@@ -52,6 +56,7 @@ export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
         name="email"
         value={formData.email}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
       <TextField
         label="Password"
@@ -59,6 +64,7 @@ export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
         type="password"
         value={formData.password}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
       <Button onClick={handleFormSubmit}>Login</Button>
     </Box>

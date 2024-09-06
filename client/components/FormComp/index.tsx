@@ -3,6 +3,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Recipe } from "../../utils/types";
 import { styles } from "./styles";
+import { getToken, saveRecipe } from "@/utils/api";
 
 export const FormComp = () => {
   const {
@@ -44,6 +45,30 @@ export const FormComp = () => {
       console.error(error);
     }
   };
+
+  // added the saving logic to the button
+  const handleSaveRecipe = async (index: number) => {
+    const loggedInToken = getToken();
+    if (!loggedInToken) {
+      alert("You must be logged in to save a recipe");
+      return;
+    }
+    const recipeData = searchedRecipies[index];
+    if (!recipeData) {
+      alert("No recipe found");
+      return;
+    }
+    try {
+      const response = await saveRecipe(recipeData, loggedInToken);
+      if (!response.ok) {
+        throw new Error("Failed to save recipe");
+      }
+      alert("Recipe saved successfully");
+    } catch (error) {
+      console.error("Error saving recipe:", error);
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleFormSubmit();
@@ -87,10 +112,11 @@ export const FormComp = () => {
             <Button
               sx={button}
               onClick={() => {
-                console.log("Save recipe");
+                const token = localStorage.getItem("token");
+                handleSaveRecipe(index);
               }}
             >
-              Save
+              Save Recipe
             </Button>
           </Box>
         ))}

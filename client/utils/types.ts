@@ -1,4 +1,5 @@
 export interface Recipe {
+  index: number;
   title: string;
   ingredients: string;
   instructions: string;

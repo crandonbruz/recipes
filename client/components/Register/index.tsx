@@ -3,6 +3,7 @@ import { styles } from "./styles";
 import { useState } from "react";
 import { registerUser } from "@/utils/api";
 import { RegisterCompProps } from "@/utils/types";
+import { log } from "console";
 
 export const RegisterComp: React.FC<RegisterCompProps> = ({ onRegister }) => {
   const { root } = styles;
@@ -47,9 +48,15 @@ export const RegisterComp: React.FC<RegisterCompProps> = ({ onRegister }) => {
 
       console.log("Register successful");
       onRegister(responseData.token);
+      console.log(responseData.token);
       setRegisterState({ email: "", username: "", password: "" });
     } catch (error) {
       console.error(error);
+    }
+  };
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleFormSubmit();
     }
   };
 
@@ -60,12 +67,14 @@ export const RegisterComp: React.FC<RegisterCompProps> = ({ onRegister }) => {
         name="email"
         value={registerState.email}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
       <TextField
         label="Username"
         name="username"
         value={registerState.username}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
       <TextField
         label="Password"
@@ -73,6 +82,7 @@ export const RegisterComp: React.FC<RegisterCompProps> = ({ onRegister }) => {
         type="password"
         value={registerState.password}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
       />
       <Button onClick={handleFormSubmit}>Register</Button>
     </Box>

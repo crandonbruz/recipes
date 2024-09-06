@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { styles } from "./styles";
 import { LoginComp } from "../Login";
 import { RegisterComp } from "../Register";
-import { redirect } from "next/navigation";
-import { UsersComp } from "../Users";
-import { renderToString } from "react-dom/server";
+import Link from "next/link";
 
 export const NavComp = () => {
   const { root, button, modal } = styles;
@@ -13,6 +11,7 @@ export const NavComp = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<null | "login" | "register">(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState<string>("");
 
   const open = Boolean(anchorEl);
 
@@ -35,22 +34,26 @@ export const NavComp = () => {
     setModalType(null);
   };
 
-  const handleLogin = () => {
+  const handleLogin = (username: string) => {
     setIsLoggedIn(true);
+    setUsername(username);
     handleCloseModal();
   };
-  const handleRegister = () => {
+  const handleRegister = (username: string) => {
     setIsLoggedIn(true);
+    setUsername(username);
     handleCloseModal();
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setUsername("");
     handleClose();
   };
-  const handleUserPage = () => {
-    redirect(renderToString(<UsersComp />));
-  };
+  // make this redirect to the user route
+  // const handleUserPage = () => {
+  //   router.push("/profile");
+  // };
 
   return (
     <Box sx={root}>
@@ -63,7 +66,7 @@ export const NavComp = () => {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          {isLoggedIn ? `Welcome User` : "Recipies"}
+          {isLoggedIn ? `Welcome ${username}` : "Recipies"}
         </Button>
         <Menu
           id="fade-menu"
@@ -78,7 +81,11 @@ export const NavComp = () => {
           {isLoggedIn ? (
             <div>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              <MenuItem onClick={handleUserPage}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link href="/profile" passHref>
+                  Profile
+                </Link>
+              </MenuItem>
             </div>
           ) : (
             <div>
