@@ -1,6 +1,6 @@
 import { UsersComp } from "@/components/Users";
 
-export const Profile = () => {
+const Profile = () => {
   return (
     <>
       <UsersComp />

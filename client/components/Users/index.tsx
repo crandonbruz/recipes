@@ -40,8 +40,8 @@ export const UsersComp = () => {
     <Box sx={root}>
       <Typography variant="h4">Welcome, {username}</Typography>
       <Typography variant="h6">Your recipes:</Typography>
-      {recipes.map((recipe: any) => (
-        <Box>
+      {recipes.map((recipe: any, index) => (
+        <Box key={index}>
           <Typography key={recipe._id}>Recipe name: {recipe.title}</Typography>
           <Typography key={recipe._id}>
             Ingredients: {recipe.ingredients}
