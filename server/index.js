@@ -11,11 +11,13 @@ import helmet from "helmet";
 
 const port = 4000;
 const app = new express();
-const corsOptions = {
-  origin: "https://recipies-client-git-main-crandonbruzs-projects.vercel.app",
-  allowedHeaders: ["Authorization", "Content-Type"],
-  credentials: true,
-  methods: "GET, POST, PUT, DELETE",
+const corsOptions = (req) => {
+  const origin = req.header("Origin");
+  const allowedOrigins = ["http://localhost:3000"];
+  if (allowedOrigins.includes(origin)) {
+    return { origin: true };
+  }
+  return { origin: false };
 };
 app.use(cors(corsOptions));
 app.use(express.json());
