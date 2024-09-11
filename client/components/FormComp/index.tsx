@@ -18,6 +18,7 @@ export const FormComp = () => {
   } = styles;
   const [searchInput, setSearchInput] = useState("");
   const [searchedRecipies, setSearchedRecipies] = useState<Recipe[]>([]);
+  // Change backend url to localhost for development
   const backendUrl =
     process.env.REACT_APP_BACKEND_URL || "https://recipies.vercel.app";
 

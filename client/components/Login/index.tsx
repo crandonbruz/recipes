@@ -38,7 +38,7 @@ export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
 
       onLogin(response.userData.username);
       // for testing purposes only
-      // console.log(response);
+      console.log(response);
 
       setFormData({ email: "", password: "" });
     } catch (error) {

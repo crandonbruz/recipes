@@ -1,4 +1,4 @@
-//remember to add the correct routes for the backend once done testing
+// remember to add the correct routes for the backend once done testing
 
 const backendUrl =
   process.env.REACT_APP_BACKEND_URL || "https://recipies.vercel.app";
@@ -38,7 +38,6 @@ export const loginUser = async (userData: any) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken}`,
       },
       body: JSON.stringify(userData),
     });

@@ -5,10 +5,12 @@ const expiration = process.env.JWT_EXPIRATION || "2h";
 
 export const authMiddleware = (req, res, next) => {
   let token = req.headers.authorization;
-  console.log("Authorization header:", req.headers.authorization); // Debug log
+
+  console.log("Headers received:", req.headers); // Debug log
 
   if (token) {
     token = token.split(" ").pop().trim(); // Extract the token
+    console.log("Authorization header:", req.headers.authorization); // Debug log
     console.log("Extracted token:", token); // Debug log
   } else {
     return res.status(400).json({ message: "No token provided" });

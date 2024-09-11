@@ -49,7 +49,7 @@ export const UsersComp = () => {
     <Box sx={root}>
       <Typography variant="h4">Welcome, {username}</Typography>
       <Typography variant="h6">Your recipes:</Typography>
-      <Box sx={data}>
+      <Box sx={map}>
         {recipes.map((recipe: any, index) => (
           <Box key={index}>
             <Typography sx={title} key={recipe._id}>
@@ -64,10 +64,10 @@ export const UsersComp = () => {
             <Typography sx={servings} key={recipe._id}>
               Servings: {recipe.servings}
             </Typography>
-            <Button sx={button} variant="contained" color="primary">
+            <Button sx={button} variant="contained">
               Delete Recipe
             </Button>
-            <Button sx={button} variant="contained" color="primary">
+            <Button sx={button} variant="contained">
               <Link href="/" passHref>
                 Continue your recipe search
               </Link>

@@ -6,6 +6,8 @@ import recipesRouter from "./routes/api/recipe.js";
 import registerRouter from "./routes/api/login.js";
 import db from "./config/connection.js";
 import helmet from "helmet";
+// Change url to localhost when testing
+// https://recipies-client-git-main-crandonbruzs-projects.vercel.app
 
 const port = 4000;
 const app = new express();
