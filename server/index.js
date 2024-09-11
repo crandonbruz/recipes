@@ -7,13 +7,16 @@ import registerRouter from "./routes/api/login.js";
 import db from "./config/connection.js";
 import helmet from "helmet";
 // Change url to localhost when testing
-// https://recipies-client-git-main-crandonbruzs-projects.vercel.app
+// https://recipes-client-ochre.vercel.app/
 
 const port = 4000;
 const app = new express();
 const corsOptions = (req) => {
   const origin = req.header("Origin");
-  const allowedOrigins = ["http://localhost:3000"];
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "https://recipes-client-ochre.vercel.app/",
+  ];
   if (allowedOrigins.includes(origin)) {
     return { origin: true };
   }
