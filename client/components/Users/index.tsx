@@ -35,31 +35,46 @@ export const UsersComp = () => {
     return <Typography>{error}</Typography>;
   }
 
-  const { root } = styles;
+  const {
+    root,
+    data,
+    button,
+    map,
+    title,
+    ingredients,
+    instructions,
+    servings,
+  } = styles;
   return (
     <Box sx={root}>
       <Typography variant="h4">Welcome, {username}</Typography>
       <Typography variant="h6">Your recipes:</Typography>
-      {recipes.map((recipe: any, index) => (
-        <Box key={index}>
-          <Typography key={recipe._id}>Recipe name: {recipe.title}</Typography>
-          <Typography key={recipe._id}>
-            Ingredients: {recipe.ingredients}
-          </Typography>
-          <Typography key={recipe._id}>
-            Instructions: {recipe.instructions}
-          </Typography>
-          <Typography key={recipe._id}>Servings: {recipe.servings}</Typography>
-          <Button variant="contained" color="primary">
-            Delete Recipe
-          </Button>
-          <Button variant="contained" color="primary">
-            <Link href="/" passHref>
-              Continue your recipe search
-            </Link>
-          </Button>
-        </Box>
-      ))}
+      <Box sx={data}>
+        {recipes.map((recipe: any, index) => (
+          <Box key={index}>
+            <Typography sx={title} key={recipe._id}>
+              Recipe name: {recipe.title}
+            </Typography>
+            <Typography sx={ingredients} key={recipe._id}>
+              Ingredients: {recipe.ingredients}
+            </Typography>
+            <Typography sx={instructions} key={recipe._id}>
+              Instructions: {recipe.instructions}
+            </Typography>
+            <Typography sx={servings} key={recipe._id}>
+              Servings: {recipe.servings}
+            </Typography>
+            <Button sx={button} variant="contained" color="primary">
+              Delete Recipe
+            </Button>
+            <Button sx={button} variant="contained" color="primary">
+              <Link href="/" passHref>
+                Continue your recipe search
+              </Link>
+            </Button>
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 };
