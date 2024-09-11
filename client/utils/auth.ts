@@ -2,7 +2,7 @@ import decode from "jwt-decode";
 
 export class AuthService {
   static login(idToken: string) {
-    localStorage.setItem("id_token", idToken);
+    localStorage.setItem("token", idToken);
   }
   // get user data
   static getProfile() {
@@ -27,14 +27,14 @@ export class AuthService {
   }
   // get token from local storage
   static getToken() {
-    return localStorage.getItem("id_token");
+    return localStorage.getItem("token");
   }
   // set token to local storage
   static setToken(idToken: string) {
-    localStorage.setItem("id_token", idToken);
+    localStorage.setItem("token", idToken);
   }
   // remove token from local storage
   static logout() {
-    localStorage.removeItem("id_token");
+    localStorage.removeItem("token");
   }
 }
