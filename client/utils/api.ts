@@ -1,7 +1,6 @@
 // remember to add the correct routes for the backend once done testing
 
-const backendUrl =
-  process.env.REACT_APP_BACKEND_URL || "https://recipies.vercel.app";
+const backendUrl = process.env.BACKEND_URL || "http://localhost:4000";
 
 export const getUser = async (token: any) => {
   const response = await fetch(`${backendUrl}/api/user/recipes`, {
