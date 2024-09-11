@@ -24,6 +24,7 @@ export const registerUser = (userData: any) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
     body: JSON.stringify(userData),
   });
@@ -35,6 +36,7 @@ export const loginUser = async (userData: any) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(userData),
     });
