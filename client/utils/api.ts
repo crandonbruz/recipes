@@ -20,23 +20,25 @@ export const getUser = async (token: any) => {
 };
 
 export const registerUser = (userData: any) => {
+  const getToken = localStorage.getItem("token");
   return fetch(`${backendUrl}/api/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${getToken}`,
     },
     body: JSON.stringify(userData),
   });
 };
 
 export const loginUser = async (userData: any) => {
+  const getToken = localStorage.getItem("token");
   try {
     const response = await fetch(`${backendUrl}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${getToken}`,
       },
       body: JSON.stringify(userData),
     });
