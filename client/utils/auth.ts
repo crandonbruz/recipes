@@ -5,16 +5,16 @@ export class AuthService {
     localStorage.setItem("id_token", idToken);
   }
   // get user data
-  getProfile() {
-    return decode(this.getToken() as string);
+  static getProfile() {
+    return decode(AuthService.getToken() as string);
   }
   // check if user is logged in
-  loggedIn() {
-    const token = this.getToken();
+  static loggedIn() {
+    const token = AuthService.getToken();
     return !!token && !this.isTokenExpired(token);
   }
   // check if token is expired
-  isTokenExpired(token: string) {
+  static isTokenExpired(token: string) {
     try {
       const decoded = decode(token);
       if (decoded.exp < Date.now() / 1000) {
@@ -26,15 +26,15 @@ export class AuthService {
     }
   }
   // get token from local storage
-  getToken() {
+  static getToken() {
     return localStorage.getItem("id_token");
   }
   // set token to local storage
-  setToken(idToken: string) {
+  static setToken(idToken: string) {
     localStorage.setItem("id_token", idToken);
   }
   // remove token from local storage
-  logout() {
+  static logout() {
     localStorage.removeItem("id_token");
   }
 }
