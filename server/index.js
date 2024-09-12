@@ -11,16 +11,11 @@ import helmet from "helmet";
 
 const port = 4000;
 const app = new express();
-const corsOptions = (req) => {
-  const origin = req.header("Origin");
-  const allowedOrigins = [
-    "http://localhost:3000",
-    "https://recipes-client-ochre.vercel.app/",
-  ];
-  if (allowedOrigins.includes(origin)) {
-    return { origin: true };
-  }
-  return { origin: false };
+const corsOptions = {
+  origin: "*", // This allows any origin to access the server
+  methods: "GET, POST, PUT, DELETE",
+  allowedHeaders: ["Authorization", "Content-Type"],
+  credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
