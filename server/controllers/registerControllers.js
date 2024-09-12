@@ -34,7 +34,7 @@ export const login = async (req, res, next) => {
         email: user.email,
       };
 
-      res.json({ message: "Logged in", token, userData });
+      res.json({ message: "Logged in", userData });
     } else {
       res.status(400).json({ message: "Invalid credentials" });
     }

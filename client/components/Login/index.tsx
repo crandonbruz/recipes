@@ -34,7 +34,7 @@ export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
       AuthService.login(response.token);
       // check if the token is saved in local storage
       const token = AuthService.getToken();
-      console.log("token after save", token);
+      // console.log("token after save", token);
 
       onLogin(response.userData.username);
       // for testing purposes only
