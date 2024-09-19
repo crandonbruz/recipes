@@ -76,7 +76,7 @@ export const NavComp = () => {
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
         >
-          {isLoggedIn ? `Welcome ${username}` : "Recipies"}
+          {isLoggedIn ? `Welcome ${username}` : "Recipes"}
         </Button>
         <Menu
           id="fade-menu"
