@@ -1,12 +1,26 @@
-import decode from "jwt-decode";
+import { decodeJwt } from "jose";
 
 export class AuthService {
-  static login(idToken: string) {
+  static login(idToken: string, username: string) {
     localStorage.setItem("token", idToken);
+    localStorage.setItem("username", username);
   }
   // get user data
   static getProfile() {
-    return decode(AuthService.getToken() as string);
+    const token = AuthService.getToken();
+    if (!token) {
+      return null;
+    }
+    try {
+      return decodeJwt(token); // Decode the token using jose
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return null;
+    }
+  }
+  // get username from local storage to show username when logged in
+  static getUsername() {
+    return localStorage.getItem("username");
   }
   // check if user is logged in
   static loggedIn() {
@@ -16,13 +30,12 @@ export class AuthService {
   // check if token is expired
   static isTokenExpired(token: string) {
     try {
-      const decoded = decode(token);
-      if (decoded.exp < Date.now() / 1000) {
-        return true;
-      }
-      return false;
+      const decoded = decodeJwt(token);
+      const currentTime = Date.now() / 1000;
+      return decoded.exp && decoded.exp < currentTime;
     } catch (err) {
-      return false;
+      console.error("Error checking token expiration:", err);
+      return true;
     }
   }
   // get token from local storage
@@ -36,5 +49,6 @@ export class AuthService {
   // remove token from local storage
   static logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
   }
 }
