@@ -1,6 +1,6 @@
 import { Box, Button, TextField } from "@mui/material";
 import { styles } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUser } from "@/utils/api";
 import { AuthService } from "@/utils/auth";
 import React from "react";
@@ -31,9 +31,9 @@ export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
         throw new Error("Token not found in response");
       }
 
-      AuthService.login(response.token);
+      AuthService.login(response.token, response.userData.username);
       // check if the token is saved in local storage
-      const token = AuthService.getToken();
+      // const token = AuthService.getToken();
       // console.log("token after save", token);
 
       onLogin(response.userData.username);
@@ -50,6 +50,15 @@ export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
       handleFormSubmit();
     }
   };
+  useEffect(() => {
+    const token = AuthService.getToken();
+    if (token) {
+      const userData = AuthService.getProfile();
+      if (userData) {
+        onLogin(userData.username as string);
+      }
+    }
+  }, [onLogin]);
 
   return (
     <Box sx={root}>

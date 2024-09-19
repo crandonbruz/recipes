@@ -1,9 +1,10 @@
 import { Box, Button, Fade, Menu, MenuItem, Modal } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styles } from "./styles";
 import { LoginComp } from "../Login";
 import { RegisterComp } from "../Register";
 import Link from "next/link";
+import { AuthService } from "@/utils/auth";
 
 export const NavComp = () => {
   const { root, button, modal } = styles;
@@ -14,6 +15,18 @@ export const NavComp = () => {
   const [username, setUsername] = useState<string>("");
 
   const open = Boolean(anchorEl);
+  // keep the user logged in on refresh if not logged out
+  useEffect(() => {
+    const token = AuthService.getToken();
+    const storedUsername = AuthService.getUsername();
+    if (token && !AuthService.isTokenExpired(token)) {
+      const userData = AuthService.getProfile();
+      if (userData) {
+        setUsername(storedUsername || "");
+      }
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,13 +60,10 @@ export const NavComp = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    AuthService.logout();
     setUsername("");
     handleClose();
   };
-  // make this redirect to the user route
-  // const handleUserPage = () => {
-  //   router.push("/profile");
-  // };
 
   return (
     <Box sx={root}>
