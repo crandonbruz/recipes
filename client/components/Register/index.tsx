@@ -3,7 +3,7 @@ import { styles } from "./styles";
 import { useState } from "react";
 import { registerUser } from "@/utils/api";
 import { RegisterCompProps } from "@/utils/types";
-import { log } from "console";
+import { AuthService } from "@/utils/auth";
 
 export const RegisterComp: React.FC<RegisterCompProps> = ({ onRegister }) => {
   const { root } = styles;
@@ -47,7 +47,8 @@ export const RegisterComp: React.FC<RegisterCompProps> = ({ onRegister }) => {
       }
 
       console.log("Register successful");
-      onRegister(responseData.token);
+      AuthService.login(responseData.token, registerState.username);
+      onRegister(registerState.username);
       console.log(responseData.token);
       setRegisterState({ email: "", username: "", password: "" });
     } catch (error) {
