@@ -68,7 +68,7 @@ export const saveRecipe = (recipeData: any, token: any) => {
 };
 
 export const deleteRecipe = (recipeId: any, token: any) => {
-  return fetch(`${backendUrl}/api/user/recipe/${recipeId}`, {
+  return fetch(`${backendUrl}/api/user/recipes/${recipeId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

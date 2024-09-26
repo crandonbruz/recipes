@@ -6,7 +6,7 @@ import { RegisterCompProps } from "@/utils/types";
 import { AuthService } from "@/utils/auth";
 
 export const RegisterComp: React.FC<RegisterCompProps> = ({ onRegister }) => {
-  const { root } = styles;
+  const { root, button } = styles;
   const [registerState, setRegisterState] = useState({
     email: "",
     username: "",
@@ -85,7 +85,9 @@ export const RegisterComp: React.FC<RegisterCompProps> = ({ onRegister }) => {
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      <Button onClick={handleFormSubmit}>Register</Button>
+      <Button onClick={handleFormSubmit} sx={button}>
+        Register
+      </Button>
     </Box>
   );
 };

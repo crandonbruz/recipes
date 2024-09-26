@@ -38,6 +38,7 @@ export const styles = {
     height: "100%",
     color: "#edede9",
     margin: "10px",
+    fontSize: "40px",
   },
 
   ingredients: {
