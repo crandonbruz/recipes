@@ -2,7 +2,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { styles } from "./styles";
 import { useEffect, useState } from "react";
-import { getToken, getUser } from "@/utils/api";
+import { deleteRecipe, getToken, getUser } from "@/utils/api";
 import Link from "next/link";
 
 export const UsersComp = () => {
@@ -28,6 +28,26 @@ export const UsersComp = () => {
     fetchUserData();
   }, []);
 
+  const handleDelete = async (id: string) => {
+    try {
+      const token = getToken();
+      if (token === undefined) {
+        throw new Error("You need to be logged in");
+      }
+      const response = await deleteRecipe(id, token);
+
+      console.log(id);
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+      alert("Recipe deleted");
+      window.location.reload();
+    } catch (error) {
+      setError((error as Error).message);
+    }
+  };
+
   if (loading) {
     return <Typography>Loading...</Typography>;
   }
@@ -51,9 +71,9 @@ export const UsersComp = () => {
       <Typography variant="h6">Your recipes:</Typography>
       <Box sx={map}>
         {recipes.map((recipe: any, index) => (
-          <Box key={index}>
+          <Box key={index} sx={data}>
             <Typography sx={title} key={recipe._id}>
-              Recipe name: {recipe.title}
+              Recipe Name: {recipe.title}
             </Typography>
             <Typography sx={ingredients} key={recipe._id}>
               Ingredients: {recipe.ingredients}
@@ -64,7 +84,11 @@ export const UsersComp = () => {
             <Typography sx={servings} key={recipe._id}>
               Servings: {recipe.servings}
             </Typography>
-            <Button sx={button} variant="contained">
+            <Button
+              sx={button}
+              variant="contained"
+              onClick={() => handleDelete(recipe._id)}
+            >
               Delete Recipe
             </Button>
             <Button sx={button} variant="contained">

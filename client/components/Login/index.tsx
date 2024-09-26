@@ -7,7 +7,7 @@ import React from "react";
 import { LoginCompProps } from "@/utils/types";
 
 export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
-  const { root } = styles;
+  const { root, button } = styles;
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleInputChange = (e: { target: { name: any; value: any } }) => {
@@ -77,7 +77,9 @@ export const LoginComp: React.FC<LoginCompProps> = ({ onLogin }) => {
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      <Button onClick={handleFormSubmit}>Login</Button>
+      <Button onClick={handleFormSubmit} sx={button}>
+        Login
+      </Button>
     </Box>
   );
 };

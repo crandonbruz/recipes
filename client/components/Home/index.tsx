@@ -9,7 +9,9 @@ export const Home: React.FC = () => {
         Welcome to the recipe finder.
       </Typography>
       <Typography variant="h5" sx={description}>
-        Search for your favorite recipes here.
+        Search for your favorite recipes here. Feel free to save them to your
+        profile after registering by clicking Recipes above. Most importantly,
+        Enjoy!
       </Typography>
     </Box>
   );

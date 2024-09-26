@@ -18,6 +18,9 @@ export const styles = {
     color: "#edede9",
     backgroundColor: "#264653",
     margin: "10px",
+    "&:hover": {
+      backgroundColor: "#52796f",
+    },
   },
   map: {
     width: "50%",
@@ -35,6 +38,7 @@ export const styles = {
     height: "100%",
     color: "#edede9",
     margin: "10px",
+    fontSize: "40px",
   },
 
   ingredients: {

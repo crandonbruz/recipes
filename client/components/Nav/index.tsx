@@ -7,7 +7,7 @@ import Link from "next/link";
 import { AuthService } from "@/utils/auth";
 
 export const NavComp = () => {
-  const { root, button, modal } = styles;
+  const { root, button, modal, loginModal, menu, text } = styles;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<null | "login" | "register">(null);
@@ -67,7 +67,7 @@ export const NavComp = () => {
 
   return (
     <Box sx={root}>
-      <div>
+      <Box>
         <Button
           style={button}
           id="fade-button"
@@ -89,28 +89,30 @@ export const NavComp = () => {
           TransitionComponent={Fade}
         >
           {isLoggedIn ? (
-            <div>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-              <MenuItem onClick={handleClose}>
+            <Box sx={modal}>
+              <MenuItem onClick={handleClose} sx={text}>
                 <Link href="/profile" passHref>
                   Profile
                 </Link>
               </MenuItem>
-            </div>
+              <MenuItem onClick={handleLogout} sx={text}>
+                Logout
+              </MenuItem>
+            </Box>
           ) : (
-            <div>
-              <MenuItem onClick={() => handleOpenModal("login")}>
+            <Box sx={modal}>
+              <MenuItem onClick={() => handleOpenModal("login")} sx={text}>
                 Login
               </MenuItem>
-              <MenuItem onClick={() => handleOpenModal("register")}>
+              <MenuItem onClick={() => handleOpenModal("register")} sx={text}>
                 Register
               </MenuItem>
-            </div>
+            </Box>
           )}
         </Menu>
-      </div>
+      </Box>
       <Modal open={showModal} onClose={handleCloseModal}>
-        <Box sx={modal}>
+        <Box sx={loginModal}>
           {modalType === "login" && <LoginComp onLogin={handleLogin} />}
           {modalType === "register" && (
             <RegisterComp onRegister={handleRegister} />

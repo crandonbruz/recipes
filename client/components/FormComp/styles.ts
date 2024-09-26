@@ -18,6 +18,11 @@ export const styles = {
   },
   button: {
     color: "#edede9",
+    backgroundColor: "#264653",
+    margin: "10px",
+    "&:hover": {
+      backgroundColor: "#52796f",
+    },
   },
   map: {
     width: "50%",
