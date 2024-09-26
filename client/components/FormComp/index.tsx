@@ -50,7 +50,9 @@ export const FormComp = () => {
   const handleSaveRecipe = async (index: number) => {
     const loggedInToken = getToken();
     if (!loggedInToken) {
-      alert("You must be logged in to save a recipe");
+      alert(
+        "You must be logged in to save a recipe. Click on Recipes to login or register."
+      );
       return;
     }
     const recipeData = searchedRecipies[index];
