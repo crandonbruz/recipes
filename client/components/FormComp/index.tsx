@@ -27,7 +27,7 @@ export const FormComp = () => {
     }
     try {
       const response = await fetch(
-        `${backendUrl}/api/recipes?query=${searchInput}`
+        `${backendUrl}/api/recipes?query=${searchInput}`,
       );
       console.log(response);
 
@@ -51,7 +51,7 @@ export const FormComp = () => {
     const loggedInToken = getToken();
     if (!loggedInToken) {
       alert(
-        "You must be logged in to save a recipe. Click on Recipes to login or register."
+        "You must be logged in to save a recipe. Click on Recipes to login or register.",
       );
       return;
     }
@@ -81,7 +81,7 @@ export const FormComp = () => {
       <Box sx={root}>
         <TextField
           sx={{ color: "#edede9" }}
-          label="Type your recipe here"
+          label="Type your recipe or ingredient here"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           onKeyDown={handleKeyDown}
